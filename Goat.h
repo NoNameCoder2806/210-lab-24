@@ -101,7 +101,7 @@ public:
         Arguments: none
         Return: none
     */
-    void print()
+    void print() const
     {
         cout << name << " (" << age << ", " << color << ")";
     }

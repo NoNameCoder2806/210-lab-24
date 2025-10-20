@@ -220,7 +220,7 @@ void delete_goat(set<Goat> &trip)
         int i = 0;
 
         // Iterate thourgh the set and delete the Goat
-        for (auto it : trip)
+        for (auto it = trip.begin(); it != trip.end(); ++it)
         {
             // Compare i with the selected Goat index
             if (goatChoice == i + 1)        // If the index matches
@@ -297,11 +297,11 @@ void display_trip(set<Goat> trip)
     int count = 0;
 
     // Iterate through the Goat set
-    for (auto it : trip)
+    for (auto it = trip.begin(); it != trip.end(); ++it)
     {
         // Display the Goat object
         cout << "    [" << count + 1 << "] ";        // The index
-        it.print();                                 // The print() member function
+        it->print();                                 // The print() member function
         cout << endl;                                // Enter a new line
 
         // Increment the counter
