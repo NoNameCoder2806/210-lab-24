@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <list>
+#include <set>
 #include "Goat.h"
 using namespace std;
 
@@ -20,10 +20,10 @@ const string COLORS_PATH = "colors.txt";
 
 // Function prototypes
 int main_menu();
-void add_goat(list<Goat> &trip, string names[], string colors[]);
-void delete_goat(list<Goat> &trip);
-int select_goat(list<Goat> trip);
-void display_trip(list<Goat> trip);
+void add_goat(set<Goat> &trip, string names[], string colors[]);
+void delete_goat(set<Goat> &trip);
+int select_goat(set<Goat> trip);
+void display_trip(set<Goat> trip);
 
 // Main function
 int main()
@@ -31,8 +31,8 @@ int main()
     // Call srand() and time() to generate a seed
     srand(time(0));
 
-    // Create a Goat list
-    list<Goat> trip;
+    // Create a Goat set
+    set<Goat> trip;
 
     // Create some variables
     bool again = true;        // Loop the program
@@ -82,7 +82,7 @@ int main()
                 break;
             }
 
-            // List the Goat trip
+            // Display the Goat set / trip
             case 3:
             {
                 // Call display_trip()
@@ -110,7 +110,7 @@ int main()
 // Function implementations
 /*
     main_menu()
-    Display the menu of operations the user can implement on the list
+    Display the menu of operations the user can implement on the set
     Arguments: none
     Return: 
         - the user's operation choice (between 1 and 4)
@@ -150,14 +150,14 @@ int main_menu()
 
 /*
     add_goat()
-    Add a Goat object into the Goat list (trip)
+    Add a Goat object into the Goat set (trip)
     Arguments:
-        - trip: the list of Goat objects (passed by reference)
+        - trip: the set of Goat objects (passed by reference)
         - names: an array containing all the Goat names (passed by value)
         - colors: an array containing all the Goat colors (passed by value)
     Return: none
 */
-void add_goat(list<Goat>& trip, string names[], string colors[])
+void add_goat(set<Goat>& trip, string names[], string colors[])
 {
     // Create 3 variables as the Goat object's member variables
     string n = names[rand() % SIZE_NAMES];
@@ -168,7 +168,7 @@ void add_goat(list<Goat>& trip, string names[], string colors[])
     Goat temp(n, a, c);
 
     // Add the Goat object to the trip
-    trip.push_front(temp);
+    trip.insert(temp);
 
     // Display a message
     cout << "--- Added ";
@@ -181,12 +181,12 @@ void add_goat(list<Goat>& trip, string names[], string colors[])
 
 /*
     delete_goat()
-    Delete a Goat object from the Goat list (trip)
+    Delete a Goat object from the Goat set (trip)
     Arguments:
-        - trip: the list of Goat objects (passed by reference)
+        - trip: the set of Goat objects (passed by reference)
     Return: none
 */
-void delete_goat(list<Goat> &trip)
+void delete_goat(set<Goat> &trip)
 {
     // Create variables to get the user's choices
     int goatChoice = select_goat(trip);
@@ -219,13 +219,13 @@ void delete_goat(list<Goat> &trip)
         // Create a counter
         int i = 0;
 
-        // Iterate thourgh the list and delete the Goat
-        for (auto it = trip.begin(); it != trip.end(); ++it)
+        // Iterate thourgh the set and delete the Goat
+        for (auto it : trip)
         {
             // Compare i with the selected Goat index
             if (goatChoice == i + 1)        // If the index matches
             {
-                // Delete the Goat object from the list / trip
+                // Delete the Goat object from the set / trip
                 trip.erase(it);
 
                 // Display a message
@@ -248,11 +248,11 @@ void delete_goat(list<Goat> &trip)
     select_goat()
     Allow user to select a Goat object from the trip
     Arguments:
-        - trip: the list of Goat objects (passed by value)
+        - trip: the set of Goat objects (passed by value)
     Return:
-        - the index of the Goat in the list / trip
+        - the index of the Goat in the set
 */
-int select_goat(list<Goat> trip)
+int select_goat(set<Goat> trip)
 {
     // Create a variable to get the user's choice
     int position = 0;
@@ -269,7 +269,7 @@ int select_goat(list<Goat> trip)
     while (position < 1 || position > trip.size())
     {
         // Display an error message
-        cout << "--- Invalid! Please select a Goat in the list! ---" << endl;
+        cout << "--- Invalid! Please select a Goat in the set! ---" << endl;
 
         // Prompt the user to enter the choice again
         cout << "- Please select a Goat: ";
@@ -283,12 +283,12 @@ int select_goat(list<Goat> trip)
 
 /*
     display_trip()
-    Display the whole Goat list
+    Display the whole Goat set
     Arguments: 
-        - trip: the list of Goat objects (passed by value)
+        - trip: the set of Goat objects (passed by value)
     Return: none
 */
-void display_trip(list<Goat> trip)
+void display_trip(set<Goat> trip)
 {
     // Display a header
     cout << "--- Current Goat trip ---" << endl;
@@ -296,12 +296,12 @@ void display_trip(list<Goat> trip)
     // Create a counter
     int count = 0;
 
-    // Iterate through the Goat list
-    for (auto it = trip.begin(); it != trip.end(); ++it)
+    // Iterate through the Goat set
+    for (auto it : trip)
     {
         // Display the Goat object
         cout << "    [" << count + 1 << "] ";        // The index
-        it->print();                                 // The print() member function
+        it.print();                                 // The print() member function
         cout << endl;                                // Enter a new line
 
         // Increment the counter

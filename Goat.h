@@ -82,16 +82,16 @@ public:
     // Operators
     /*
         operator<()
-        Overload the < operator to compare two Goat objects based on age
+        Overload the < operator to compare two Goat objects based on name
         Arguments:
             - other: the Goat object to compare with
         Return: 
-            - true if this Goat's age is less than the other Goat's age
+            - true if this Goat's name is less than the other Goat's name (alphabetically)
             - false if otherwise
     */
     bool operator<(const Goat& other) const
     {
-        return age < other.age;
+        return name < other.name;
     }
 
     // Member functions
